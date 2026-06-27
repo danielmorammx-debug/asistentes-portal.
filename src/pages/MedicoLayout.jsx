@@ -76,7 +76,9 @@ function FAQBlock() {
 }
 
 const CustomFooter = () => {
-  const navigate = useNavigate();
+  const { isActive, isConnecting, toggleCall } = useVapiCall(VAPI_PUBLIC_KEY);
+  const MARCO_ASSISTANT_ID = "951561ae-d96c-493d-9677-5e029bef24ad";
+
   return (
     <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '80px', marginBottom: '40px' }}>
       <h3 className="text-renner text-black" style={{ fontSize: '1.2rem', letterSpacing: '2px', marginBottom: '16px' }}>CONTACTO</h3>
@@ -85,9 +87,11 @@ const CustomFooter = () => {
         Contacta hoy mismo a <span className="text-halaney text-black" style={{fontSize: '1.8rem'}}>Marco</span>, nuestro agente experto, y comencemos a diseñar la solución que tu proyecto necesita.
       </p>
       
-      <div className="marco-avatar-container-light" onClick={() => navigate('/contacto')}>
-        <img src="/Marco_Avatar.png" alt="Marco" className="marco-avatar-img" />
-        <span className="text-halaney marco-shadow" style={{ position: 'absolute', bottom: '-20px', color: '#f5a6f9', fontSize: '3.5rem' }}>Marco</span>
+      <div className="marco-avatar-container-light" onClick={() => toggleCall(MARCO_ASSISTANT_ID)} style={{ cursor: 'pointer' }}>
+        <img src="/Marco_Avatar.png" alt="Marco" className="marco-avatar-img" style={{ opacity: isActive ? 0.7 : 1, transform: isActive ? 'scale(1.05)' : 'scale(1)' }} />
+        <span className="text-halaney marco-shadow" style={{ position: 'absolute', bottom: '-20px', color: isActive ? '#52e19d' : '#f5a6f9', fontSize: isActive ? '2rem' : '3.5rem' }}>
+          {isActive ? 'Hablando...' : isConnecting ? 'Conectando...' : 'Marco'}
+        </span>
       </div>
 
       <div style={{ marginTop: '80px', textAlign: 'center' }}>
@@ -102,7 +106,7 @@ const CustomFooter = () => {
 
 const VAPI_PUBLIC_KEY = "2b6e0014-709a-4af2-8612-27bfa5ca8d1a";
 const MERIT_ASSISTANT_ID = "ce61a543-e6a1-4a38-af00-bd1295d3eed4";
-const MERIT_TECNICO_ID = "ce61a543-e6a1-4a38-af00-bd1295d3eed4";
+const MERIT_TECNICO_ID = "181b8c2b-e653-4d3f-81b5-8e2c1f875c5c";
 
 import { useVapiCall } from '../hooks/useVapiCall';
 import { Square } from 'lucide-react';

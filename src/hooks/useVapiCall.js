@@ -1,40 +1,45 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import Vapi from '@vapi-ai/web';
+
+let vapiInstance = null;
 
 export function useVapiCall(publicKey) {
   const [isActive, setIsActive] = useState(false);
   const [isConnecting, setIsConnecting] = useState(false);
-  const vapiRef = useRef(null);
 
   useEffect(() => {
-    const VapiConstructor = Vapi.default || Vapi;
-    vapiRef.current = new VapiConstructor(publicKey);
+    // Initialize singleton if it doesn't exist
+    if (!vapiInstance) {
+      const VapiConstructor = Vapi.default || Vapi;
+      vapiInstance = new VapiConstructor(publicKey);
+    }
 
-    vapiRef.current.on('call-start', () => {
+    const onCallStart = () => {
       setIsActive(true);
       setIsConnecting(false);
-    });
+    };
 
-    vapiRef.current.on('call-end', () => {
+    const onCallEnd = () => {
       setIsActive(false);
       setIsConnecting(false);
-    });
+    };
+
+    vapiInstance.on('call-start', onCallStart);
+    vapiInstance.on('call-end', onCallEnd);
 
     return () => {
-      if (vapiRef.current) {
-        vapiRef.current.stop();
-        vapiRef.current = null;
-      }
+      vapiInstance.off('call-start', onCallStart);
+      vapiInstance.off('call-end', onCallEnd);
     };
   }, [publicKey]);
 
   const toggleCall = async (assistantId) => {
     if (isActive) {
-      vapiRef.current.stop();
+      vapiInstance.stop();
     } else {
       setIsConnecting(true);
       try {
-        await vapiRef.current.start(assistantId);
+        await vapiInstance.start(assistantId);
       } catch (error) {
         console.error("Error al iniciar llamada Vapi:", error);
         setIsConnecting(false);
