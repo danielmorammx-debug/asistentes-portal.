@@ -111,8 +111,8 @@ function SimuladorView() {
   const { isActive, isConnecting, toggleCall } = useVapiCall(VAPI_PUBLIC_KEY);
 
   const handleWhatsApp = () => {
-    // Abrir WhatsApp con un nmero temporal o genrico.
-    window.open('https://wa.me/5215555555555?text=Hola%20Mariana,%20quiero%20informacin%20sobre%20Polestar', '_blank');
+    // Abrir WhatsApp con el número de Test Drive MX.
+    window.open('https://wa.me/529989203237?text=Hola%20Mariana,%20quiero%20información%20sobre%20Polestar', '_blank');
   };
 
   return (

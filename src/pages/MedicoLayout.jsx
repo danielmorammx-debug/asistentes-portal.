@@ -111,7 +111,7 @@ function SimuladorMedicoView() {
   const { isActive, isConnecting, toggleCall } = useVapiCall(VAPI_PUBLIC_KEY);
 
   const handleWhatsApp = () => {
-    window.open('https://wa.me/5215555555555?text=Hola%20Merit,%20quiero%20agendar%20una%20cita%20médica', '_blank');
+    window.open('https://wa.me/529989203237?text=Hola%20Merit,%20quiero%20agendar%20una%20cita%20médica', '_blank');
   };
 
   return (
