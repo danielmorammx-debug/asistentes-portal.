@@ -290,6 +290,45 @@ button {
 @media (max-width: 768px) {
   .split-badge {
     margin-top: 0;
+    width: 150px;
+    height: 150px;
+  }
+  .split-badge.med-badge {
+    background: rgba(255, 255, 255, 0.12);
+  }
+  .split-badge.auto-badge {
+    background: rgba(0, 0, 0, 0.12);
+  }
+  
+  /* Fix Mobile Layout Overflow */
+  .prueba-panel-custom,
+  .prueba-panel-custom-light {
+    padding: 20px 15px !important;
+  }
+  
+  .prueba-buttons-container {
+    gap: 20px !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    margin-top: 20px !important;
+  }
+
+  .red-circle-btn,
+  .green-circle-btn {
+    width: 90px !important;
+    height: 90px !important;
+  }
+  .red-circle-btn svg,
+  .green-circle-btn svg {
+    width: 35px;
+    height: 35px;
+  }
+
+  .calendar-sim, 
+  .chat-sim {
+    padding: 15px !important;
+    margin: 10px 0 !important;
+    max-width: 100% !important;
   }
 }
 

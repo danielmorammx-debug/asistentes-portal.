@@ -100,6 +100,115 @@ const CustomFooter = () => {
   );
 };
 
+const VAPI_PUBLIC_KEY = "2b6e0014-709a-4af2-8612-27bfa5ca8d1a";
+const MERIT_ASSISTANT_ID = "ce61a543-e6a1-4a38-af00-bd1295d3eed4";
+const MERIT_TECNICO_ID = "ce61a543-e6a1-4a38-af00-bd1295d3eed4";
+
+import { useVapiCall } from '../hooks/useVapiCall';
+import { Square } from 'lucide-react';
+
+function SimuladorMedicoView() {
+  const { isActive, isConnecting, toggleCall } = useVapiCall(VAPI_PUBLIC_KEY);
+
+  const handleWhatsApp = () => {
+    window.open('https://wa.me/5215555555555?text=Hola%20Merit,%20quiero%20agendar%20una%20cita%20médica', '_blank');
+  };
+
+  return (
+    <div className="fade-in" style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '40px', alignSelf: 'flex-start' }}>
+        <h2 className="text-renner text-black" style={{ fontSize: '2rem' }}>Simulador Operativo</h2>
+        <span className="text-halaney text-green title-shadow" style={{ fontSize: '3.5rem' }}>Merit</span>
+      </div>
+
+      <div className="medico-simulator-wrapper">
+        <MedicoSimulator />
+      </div>
+
+      <h3 className="text-renner text-black" style={{ fontSize: '1.8rem', textAlign: 'center', margin: '60px 0 40px', maxWidth: '600px', lineHeight: 1.4 }}>
+        Haz la prueba ahora mismo de hablar o chatear con <span className="text-halaney text-green title-shadow" style={{ fontSize: '3rem', verticalAlign: 'middle' }}>Merit</span> como si fueras un paciente.
+      </h3>
+
+      <div className="prueba-panel-custom-light">
+        <img src="/Merit_Asistente_App.png" alt="Prueba Merit" className="prueba-img" />
+        
+        <div className="prueba-buttons-container">
+          <div className="prueba-btn-wrapper" onClick={() => toggleCall(MERIT_ASSISTANT_ID)} style={{ cursor: 'pointer' }}>
+            <div className={`circle-bisel-wrapper-light ${isActive ? 'active-call' : ''}`}>
+              <div className="red-circle-btn" style={{ backgroundColor: isActive ? '#ff4b2b' : '' }}>
+                {isActive ? <Square size={40} color="white" /> : <Phone size={50} color="white" />}
+              </div>
+            </div>
+            <div style={{ textAlign: 'center', marginTop: '16px' }}>
+              <p className="text-black" style={{ fontSize: '1.4rem', fontWeight: 600 }}>
+                {isConnecting ? 'Conectando...' : isActive ? 'Finalizar' : 'Hablar con'}
+              </p>
+              <p className="text-halaney text-green title-shadow" style={{ fontSize: '2.5rem', marginTop: '12px' }}>Merit</p>
+            </div>
+          </div>
+
+          <div className="prueba-btn-wrapper" onClick={handleWhatsApp} style={{ cursor: 'pointer' }}>
+            <div className="circle-bisel-wrapper-light">
+              <div className="green-circle-btn">
+                <MessageCircle size={50} color="white" />
+              </div>
+            </div>
+            <div style={{ textAlign: 'center', marginTop: '16px' }}>
+              <p className="text-black" style={{ fontSize: '1.4rem', fontWeight: 600 }}>Chatear con</p>
+              <p className="text-halaney text-green title-shadow" style={{ fontSize: '2.5rem', marginTop: '12px' }}>Merit</p>
+            </div>
+          </div>
+        </div>
+
+        <p style={{ fontSize: '0.85rem', textAlign: 'center', color: '#5a5a5a', fontStyle: 'italic', marginTop: '30px', padding: '0 40px', lineHeight: 1.5 }}>
+          <b>Nota de privacidad:</b> Este entorno operativo es una simulación con fines demostrativos.
+        </p>
+      </div>
+
+      <CustomFooter />
+    </div>
+  );
+}
+
+function ConsultorMedicoView() {
+  const { isActive, isConnecting, toggleCall } = useVapiCall(VAPI_PUBLIC_KEY);
+
+  return (
+    <div className="fade-in" style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '40px', alignSelf: 'flex-start' }}>
+        <h2 className="text-renner text-black" style={{ fontSize: '2rem' }}>Consultor Técnico</h2>
+        <span className="text-halaney text-green title-shadow" style={{ fontSize: '3.5rem' }}>Merit</span>
+      </div>
+      
+      <div className="prueba-panel-custom-light">
+        <img src="/Merit_tecnico_app.png" alt="Prueba Consultor" className="prueba-img" />
+        
+        <div className="prueba-buttons-container">
+          <div className="prueba-btn-wrapper" onClick={() => toggleCall(MERIT_TECNICO_ID)} style={{ cursor: 'pointer' }}>
+            <div className={`circle-bisel-wrapper-light ${isActive ? 'active-call' : ''}`}>
+              <div className="red-circle-btn" style={{ backgroundColor: isActive ? '#ff4b2b' : '' }}>
+                {isActive ? <Square size={40} color="white" /> : <Phone size={50} color="white" />}
+              </div>
+            </div>
+            <div style={{ textAlign: 'center', marginTop: '16px' }}>
+              <p className="text-black" style={{ fontSize: '1.4rem', fontWeight: 600 }}>
+                {isConnecting ? 'Conectando...' : isActive ? 'Finalizar' : 'Hablar con'}
+              </p>
+              <p className="text-halaney text-green title-shadow" style={{ fontSize: '2.5rem', marginTop: '12px' }}>Merit</p>
+            </div>
+          </div>
+        </div>
+
+        <p style={{ fontSize: '0.85rem', textAlign: 'center', color: '#5a5a5a', fontStyle: 'italic', marginTop: '30px', padding: '0 40px', lineHeight: 1.5 }}>
+          <b>Nota de privacidad:</b> Este entorno operativo es una simulación con fines demostrativos.
+        </p>
+      </div>
+
+      <CustomFooter />
+    </div>
+  );
+}
+
 export default function MedicoLayout() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -117,7 +226,7 @@ export default function MedicoLayout() {
       
       {/* HEADER */}
       <header className="layout-header-custom" style={{ padding: '40px', maxWidth: '1200px', margin: '0 auto', display: 'flex', alignItems: 'center' }}>
-        <button onClick={handleBack} style={{ background: 'transparent', color: 'black', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+        <button onClick={handleBack} style={{ background: 'transparent', color: 'black', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', border: 'none' }}>
           <ArrowLeft size={24} />
         </button>
         <h1 className="text-renner text-black" style={{ fontSize: '2.5rem', marginLeft: '20px' }}>
@@ -127,11 +236,9 @@ export default function MedicoLayout() {
 
       <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '0 20px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <Routes>
-          {/* BLOQUE 2: MENÚ PRESENTACIÓN */}
           <Route path="/" element={
             <>
               <div className="cards-grid-custom fade-in delay-1">
-                {/* Simulador Card - Tipo B Light */}
                 <div className="card-type-b-light" onClick={() => navigate('/medico/simulador')}>
                   <div className="card-img-wrapper">
                     <img src="/Merit_Asistente_App.png" alt="Simulador Operativo" className="card-img" />
@@ -145,7 +252,6 @@ export default function MedicoLayout() {
                   </div>
                 </div>
 
-                {/* Consultor Card - Tipo B Light */}
                 <div className="card-type-b-light" onClick={() => navigate('/medico/consultor')}>
                   <div className="card-img-wrapper">
                     <img src="/Merit_tecnico_app.png" alt="Consultor Técnico" className="card-img" />
@@ -166,94 +272,8 @@ export default function MedicoLayout() {
             </>
           } />
 
-          {/* BLOQUE 3: SIMULADOR (PRUEBAS) */}
-          <Route path="/simulador" element={
-            <div className="fade-in" style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '40px', alignSelf: 'flex-start' }}>
-                <h2 className="text-renner text-black" style={{ fontSize: '2rem' }}>Simulador Operativo</h2>
-                <span className="text-halaney text-green title-shadow" style={{ fontSize: '3.5rem' }}>Merit</span>
-              </div>
-
-              {/* Calendario y WhatsApp Simulator */}
-              <div className="medico-simulator-wrapper">
-                <MedicoSimulator />
-              </div>
-
-              <h3 className="text-renner text-black" style={{ fontSize: '1.8rem', textAlign: 'center', margin: '60px 0 40px', maxWidth: '600px', lineHeight: 1.4 }}>
-                Haz la prueba ahora mismo de hablar o chatear con <span className="text-halaney text-green title-shadow" style={{ fontSize: '3rem', verticalAlign: 'middle' }}>Merit</span> como si fueras un paciente.
-              </h3>
-
-              <div className="prueba-panel-custom-light">
-                <img src="/Merit_Asistente_App.png" alt="Prueba Merit" className="prueba-img" />
-                
-                <div className="prueba-buttons-container">
-                  <div className="prueba-btn-wrapper">
-                    <div className="circle-bisel-wrapper-light">
-                      <div className="red-circle-btn">
-                        <Phone size={50} color="white" />
-                      </div>
-                    </div>
-                    <div style={{ textAlign: 'center', marginTop: '16px' }}>
-                      <p className="text-black" style={{ fontSize: '1.4rem', fontWeight: 600 }}>Hablar con</p>
-                      <p className="text-halaney text-green title-shadow" style={{ fontSize: '2.5rem', marginTop: '12px' }}>Merit</p>
-                    </div>
-                  </div>
-
-                  <div className="prueba-btn-wrapper">
-                    <div className="circle-bisel-wrapper-light">
-                      <div className="green-circle-btn">
-                        <MessageCircle size={50} color="white" />
-                      </div>
-                    </div>
-                    <div style={{ textAlign: 'center', marginTop: '16px' }}>
-                      <p className="text-black" style={{ fontSize: '1.4rem', fontWeight: 600 }}>Chatear con</p>
-                      <p className="text-halaney text-green title-shadow" style={{ fontSize: '2.5rem', marginTop: '12px' }}>Merit</p>
-                    </div>
-                  </div>
-                </div>
-
-                <p style={{ fontSize: '0.85rem', textAlign: 'center', color: '#5a5a5a', fontStyle: 'italic', marginTop: '30px', padding: '0 40px', lineHeight: 1.5 }}>
-                  <b>Nota de privacidad:</b> Este entorno operativo es una simulación con fines demostrativos. La información proporcionada no es registrada ni conservada; la sesión se restablece una vez concluida, garantizando la eliminación total de los datos.
-                </p>
-              </div>
-
-              <CustomFooter />
-            </div>
-          } />
-
-          {/* BLOQUE 3: CONSULTOR */}
-          <Route path="/consultor" element={
-            <div className="fade-in" style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '40px', alignSelf: 'flex-start' }}>
-                <h2 className="text-renner text-black" style={{ fontSize: '2rem' }}>Consultor Técnico</h2>
-                <span className="text-halaney text-green title-shadow" style={{ fontSize: '3.5rem' }}>Merit</span>
-              </div>
-              
-              <div className="prueba-panel-custom-light">
-                <img src="/Merit_tecnico_app.png" alt="Prueba Consultor" className="prueba-img" />
-                
-                <div className="prueba-buttons-container">
-                  <div className="prueba-btn-wrapper">
-                    <div className="circle-bisel-wrapper-light">
-                      <div className="red-circle-btn">
-                        <Phone size={50} color="white" />
-                      </div>
-                    </div>
-                    <div style={{ textAlign: 'center', marginTop: '16px' }}>
-                      <p className="text-black" style={{ fontSize: '1.4rem', fontWeight: 600 }}>Habla con</p>
-                      <p className="text-halaney text-green title-shadow" style={{ fontSize: '2.5rem', marginTop: '12px' }}>Merit</p>
-                    </div>
-                  </div>
-                </div>
-
-                <p style={{ fontSize: '0.85rem', textAlign: 'center', color: '#5a5a5a', fontStyle: 'italic', marginTop: '30px', padding: '0 40px', lineHeight: 1.5 }}>
-                  <b>Nota de privacidad:</b> Este entorno operativo es una simulación con fines demostrativos. La información proporcionada no es registrada ni conservada; la sesión se restablece una vez concluida, garantizando la eliminación total de los datos.
-                </p>
-              </div>
-
-              <CustomFooter />
-            </div>
-          } />
+          <Route path="/simulador" element={<SimuladorMedicoView />} />
+          <Route path="/consultor" element={<ConsultorMedicoView />} />
         </Routes>
       </div>
     </div>

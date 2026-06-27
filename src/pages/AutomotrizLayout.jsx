@@ -99,6 +99,115 @@ const CustomFooter = () => {
   );
 };
 
+const VAPI_PUBLIC_KEY = "2b6e0014-709a-4af2-8612-27bfa5ca8d1a";
+const MARIANA_ASSISTANT_ID = "a8c8e1f6-32fd-4d91-8880-f7a070e0d1fe";
+// Usamos el mismo ID de Mariana para el consultor tcnico por ahora.
+const MARIANA_TECNICO_ID = "a8c8e1f6-32fd-4d91-8880-f7a070e0d1fe";
+
+import { useVapiCall } from '../hooks/useVapiCall';
+import { Square } from 'lucide-react';
+
+function SimuladorView() {
+  const { isActive, isConnecting, toggleCall } = useVapiCall(VAPI_PUBLIC_KEY);
+
+  const handleWhatsApp = () => {
+    // Abrir WhatsApp con un nmero temporal o genrico.
+    window.open('https://wa.me/5215555555555?text=Hola%20Mariana,%20quiero%20informacin%20sobre%20Polestar', '_blank');
+  };
+
+  return (
+    <div className="fade-in" style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '40px', alignSelf: 'flex-start' }}>
+        <h2 className="text-renner text-white" style={{ fontSize: '2rem' }}>Simulador Operativo</h2>
+        <span className="text-halaney text-golden title-shadow" style={{ fontSize: '3.5rem' }}>Mariana</span>
+      </div>
+
+      <AutomotrizSimulator />
+
+      <h3 className="text-renner text-white" style={{ fontSize: '1.8rem', textAlign: 'center', margin: '60px 0 40px', maxWidth: '600px', lineHeight: 1.4 }}>
+        Haz la prueba ahora mismo de hablar o chatear con <span className="text-halaney text-golden title-shadow" style={{ fontSize: '3rem', verticalAlign: 'middle' }}>Mariana</span> como si fueras un cliente.
+      </h3>
+
+      <div className="prueba-panel-custom">
+        <img src="/Mariana_Asistente.png" alt="Prueba Mariana" className="prueba-img" />
+        
+        <div className="prueba-buttons-container">
+          <div className="prueba-btn-wrapper" onClick={() => toggleCall(MARIANA_ASSISTANT_ID)} style={{ cursor: 'pointer' }}>
+            <div className={`circle-bisel-wrapper ${isActive ? 'active-call' : ''}`}>
+              <div className="red-circle-btn" style={{ backgroundColor: isActive ? '#ff4b2b' : '' }}>
+                {isActive ? <Square size={40} color="white" /> : <Phone size={50} color="white" />}
+              </div>
+            </div>
+            <div style={{ textAlign: 'center', marginTop: '16px' }}>
+              <p className="text-white" style={{ fontSize: '1.4rem', fontWeight: 600 }}>
+                {isConnecting ? 'Conectando...' : isActive ? 'Finalizar' : 'Hablar con'}
+              </p>
+              <p className="text-halaney text-golden title-shadow" style={{ fontSize: '2.5rem', marginTop: '12px' }}>Mariana</p>
+            </div>
+          </div>
+
+          <div className="prueba-btn-wrapper" onClick={handleWhatsApp} style={{ cursor: 'pointer' }}>
+            <div className="circle-bisel-wrapper">
+              <div className="green-circle-btn">
+                <MessageCircle size={50} color="white" />
+              </div>
+            </div>
+            <div style={{ textAlign: 'center', marginTop: '16px' }}>
+              <p className="text-white" style={{ fontSize: '1.4rem', fontWeight: 600 }}>Chatea con</p>
+              <p className="text-halaney text-golden title-shadow" style={{ fontSize: '2.5rem', marginTop: '12px' }}>Mariana</p>
+            </div>
+          </div>
+        </div>
+
+        <p style={{ fontSize: '0.85rem', textAlign: 'center', color: '#a0a0a0', fontStyle: 'italic', marginTop: '30px', padding: '0 40px', lineHeight: 1.5 }}>
+          <b>Nota de privacidad:</b> Este entorno operativo es una simulacin con fines demostrativos.
+        </p>
+      </div>
+
+      <CustomFooter />
+    </div>
+  );
+}
+
+function ConsultorView() {
+  const { isActive, isConnecting, toggleCall } = useVapiCall(VAPI_PUBLIC_KEY);
+
+  return (
+    <div className="fade-in" style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '40px', alignSelf: 'flex-start' }}>
+        <h2 className="text-renner text-white" style={{ fontSize: '2rem' }}>Consultor Tcnico</h2>
+        <span className="text-halaney text-golden title-shadow" style={{ fontSize: '3.5rem' }}>Mariana</span>
+      </div>
+      
+      <div className="prueba-panel-custom">
+        <img src="/Mariana_Tecnico.png" alt="Prueba Consultor" className="prueba-img" />
+        
+        <div className="prueba-buttons-container">
+          <div className="prueba-btn-wrapper" onClick={() => toggleCall(MARIANA_TECNICO_ID)} style={{ cursor: 'pointer' }}>
+            <div className={`circle-bisel-wrapper ${isActive ? 'active-call' : ''}`}>
+              <div className="red-circle-btn" style={{ backgroundColor: isActive ? '#ff4b2b' : '' }}>
+                {isActive ? <Square size={40} color="white" /> : <Phone size={50} color="white" />}
+              </div>
+            </div>
+            <div style={{ textAlign: 'center', marginTop: '16px' }}>
+              <p className="text-white" style={{ fontSize: '1.4rem', fontWeight: 600 }}>
+                {isConnecting ? 'Conectando...' : isActive ? 'Finalizar' : 'Hablar con'}
+              </p>
+              <p className="text-halaney text-golden title-shadow" style={{ fontSize: '2.5rem', marginTop: '12px' }}>Mariana</p>
+            </div>
+          </div>
+        </div>
+
+        <p style={{ fontSize: '0.85rem', textAlign: 'center', color: '#a0a0a0', fontStyle: 'italic', marginTop: '30px', padding: '0 40px', lineHeight: 1.5 }}>
+          <b>Nota de privacidad:</b> Este entorno operativo es una simulacin con fines demostrativos.
+        </p>
+      </div>
+
+      <CustomFooter />
+    </div>
+  );
+}
+
 export default function AutomotrizLayout() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -116,7 +225,7 @@ export default function AutomotrizLayout() {
       
       {/* HEADER */}
       <header className="layout-header-custom" style={{ padding: '40px', maxWidth: '1200px', margin: '0 auto', display: 'flex', alignItems: 'center' }}>
-        <button onClick={handleBack} style={{ background: 'transparent', color: 'white', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+        <button onClick={handleBack} style={{ background: 'transparent', color: 'white', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', border: 'none' }}>
           <ArrowLeft size={24} />
         </button>
         <h1 className="text-renner text-white" style={{ fontSize: '2.5rem', marginLeft: '20px' }}>
@@ -126,11 +235,10 @@ export default function AutomotrizLayout() {
 
       <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '0 20px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <Routes>
-          {/* BLOQUE 2: MENÚ PRESENTACIÓN */}
+          {/* BLOQUE 2: MEN PRESENTACIN */}
           <Route path="/" element={
             <>
               <div className="cards-grid-custom fade-in delay-1">
-                {/* Simulador Card - Tipo B */}
                 <div className="card-type-b" onClick={() => navigate('/automotriz/simulador')}>
                   <div className="card-img-wrapper">
                     <img src="/Mariana_Asistente.png" alt="Simulador Operativo" className="card-img" />
@@ -138,20 +246,19 @@ export default function AutomotrizLayout() {
                       <h2 className="text-halaney text-golden title-shadow" style={{ fontSize: '4rem', margin: '-10px 0', lineHeight: 0.8 }}>Mariana</h2>
                       <h3 className="text-renner text-white" style={{ fontSize: '1.6rem', marginBottom: '8px', marginTop: '10px' }}>Simulador Operativo</h3>
                       <p className="text-white" style={{ fontSize: '0.9rem', lineHeight: 1.4 }}>
-                        Experimenta el agendamiento inteligente 24/7 y la gestión automatizada de clientes.
+                        Experimenta el agendamiento inteligente 24/7 y la gestin automatizada de clientes.
                       </p>
                     </div>
                   </div>
                 </div>
 
-                {/* Consultor Card - También Tipo B */}
                 <div className="card-type-b" onClick={() => navigate('/automotriz/consultor')}>
                   <div className="card-img-wrapper">
-                    <img src="/Mariana_Tecnico.png" alt="Consultor Técnico" className="card-img" />
+                    <img src="/Mariana_Tecnico.png" alt="Consultor Tcnico" className="card-img" />
                     <div className="card-content">
-                      <h3 className="text-renner text-white" style={{ fontSize: '1.6rem', marginBottom: '8px', marginTop: '30px' }}>Consultor Técnico</h3>
+                      <h3 className="text-renner text-white" style={{ fontSize: '1.6rem', marginBottom: '8px', marginTop: '30px' }}>Consultor Tcnico</h3>
                       <p className="text-white" style={{ fontSize: '0.9rem', lineHeight: 1.4 }}>
-                        Habla con <span className="text-halaney text-golden title-shadow" style={{ fontSize: '1.4rem' }}>Mariana</span> para resolver dudas sobre la implementación en tu agencia.
+                        Habla con <span className="text-halaney text-golden title-shadow" style={{ fontSize: '1.4rem' }}>Mariana</span> para resolver dudas sobre la implementacin en tu agencia.
                       </p>
                     </div>
                   </div>
@@ -165,92 +272,8 @@ export default function AutomotrizLayout() {
             </>
           } />
 
-          {/* BLOQUE 3: SIMULADOR (PRUEBAS) */}
-          <Route path="/simulador" element={
-            <div className="fade-in" style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '40px', alignSelf: 'flex-start' }}>
-                <h2 className="text-renner text-white" style={{ fontSize: '2rem' }}>Simulador Operativo</h2>
-                <span className="text-halaney text-golden title-shadow" style={{ fontSize: '3.5rem' }}>Mariana</span>
-              </div>
-
-              {/* Calendario y WhatsApp Simulator */}
-              <AutomotrizSimulator />
-
-              <h3 className="text-renner text-white" style={{ fontSize: '1.8rem', textAlign: 'center', margin: '60px 0 40px', maxWidth: '600px', lineHeight: 1.4 }}>
-                Haz la prueba ahora mismo de hablar o chatear con <span className="text-halaney text-golden title-shadow" style={{ fontSize: '3rem', verticalAlign: 'middle' }}>Mariana</span> como si fueras un cliente.
-              </h3>
-
-              <div className="prueba-panel-custom">
-                <img src="/Mariana_Asistente.png" alt="Prueba Mariana" className="prueba-img" />
-                
-                <div className="prueba-buttons-container">
-                  <div className="prueba-btn-wrapper">
-                    <div className="circle-bisel-wrapper">
-                      <div className="red-circle-btn">
-                        <Phone size={50} color="white" />
-                      </div>
-                    </div>
-                    <div style={{ textAlign: 'center', marginTop: '16px' }}>
-                      <p className="text-white" style={{ fontSize: '1.4rem', fontWeight: 600 }}>Hablar con</p>
-                      <p className="text-halaney text-golden title-shadow" style={{ fontSize: '2.5rem', marginTop: '12px' }}>Mariana</p>
-                    </div>
-                  </div>
-
-                  <div className="prueba-btn-wrapper">
-                    <div className="circle-bisel-wrapper">
-                      <div className="green-circle-btn">
-                        <MessageCircle size={50} color="white" />
-                      </div>
-                    </div>
-                    <div style={{ textAlign: 'center', marginTop: '16px' }}>
-                      <p className="text-white" style={{ fontSize: '1.4rem', fontWeight: 600 }}>Chatea con</p>
-                      <p className="text-halaney text-golden title-shadow" style={{ fontSize: '2.5rem', marginTop: '12px' }}>Mariana</p>
-                    </div>
-                  </div>
-                </div>
-
-                <p style={{ fontSize: '0.85rem', textAlign: 'center', color: '#a0a0a0', fontStyle: 'italic', marginTop: '30px', padding: '0 40px', lineHeight: 1.5 }}>
-                  <b>Nota de privacidad:</b> Este entorno operativo es una simulación con fines demostrativos. La información proporcionada no es registrada ni conservada; la sesión se restablece una vez concluida, garantizando la eliminación total de los datos.
-                </p>
-              </div>
-
-              <CustomFooter />
-            </div>
-          } />
-
-          {/* BLOQUE 3: CONSULTOR */}
-          <Route path="/consultor" element={
-            <div className="fade-in" style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '40px', alignSelf: 'flex-start' }}>
-                <h2 className="text-renner text-white" style={{ fontSize: '2rem' }}>Consultor Técnico</h2>
-                <span className="text-halaney text-golden title-shadow" style={{ fontSize: '3.5rem' }}>Mariana</span>
-              </div>
-              
-              <div className="prueba-panel-custom">
-                <img src="/Mariana_Tecnico.png" alt="Prueba Consultor" className="prueba-img" />
-                
-                <div className="prueba-buttons-container">
-                  <div className="prueba-btn-wrapper">
-                    <div className="circle-bisel-wrapper">
-                      <div className="red-circle-btn">
-                        <Phone size={50} color="white" />
-                      </div>
-                    </div>
-                    <div style={{ textAlign: 'center', marginTop: '16px' }}>
-                      <p className="text-white" style={{ fontSize: '1.4rem', fontWeight: 600 }}>Habla con</p>
-                      <p className="text-halaney text-golden title-shadow" style={{ fontSize: '2.5rem', marginTop: '12px' }}>Mariana</p>
-                    </div>
-                  </div>
-                </div>
-
-                <p style={{ fontSize: '0.85rem', textAlign: 'center', color: '#a0a0a0', fontStyle: 'italic', marginTop: '30px', padding: '0 40px', lineHeight: 1.5 }}>
-                  <b>Nota de privacidad:</b> Este entorno operativo es una simulación con fines demostrativos. La información proporcionada no es registrada ni conservada; la sesión se restablece una vez concluida, garantizando la eliminación total de los datos.
-                </p>
-              </div>
-
-              <CustomFooter />
-            </div>
-          } />
+          <Route path="/simulador" element={<SimuladorView />} />
+          <Route path="/consultor" element={<ConsultorView />} />
         </Routes>
       </div>
     </div>
