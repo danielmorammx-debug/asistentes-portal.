@@ -1,22 +1,20 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Stethoscope, CarFront } from 'lucide-react';
 
 export default function Home() {
   const navigate = useNavigate();
 
   return (
-    <div className="home-container fade-in delay-1">
+    <div className="home-split-container fade-in">
       {/* Medico Side */}
       <div 
         className="split-panel med-panel"
         onClick={() => navigate('/medico')}
       >
-        <div className="panel-content">
-          <Stethoscope size={64} className="panel-icon med-icon" />
-          <h2 className="panel-title">Sector Médico</h2>
-          <p className="panel-desc">"MERIT"</p>
+        <div className="split-badge med-badge">
+          <span className="text-halaney text-green title-shadow" style={{ fontSize: '3rem' }}>Merit</span>
         </div>
+        <p className="split-label text-renner text-white">Sector Médico</p>
       </div>
 
       {/* Automotriz Side */}
@@ -24,11 +22,10 @@ export default function Home() {
         className="split-panel auto-panel"
         onClick={() => navigate('/automotriz')}
       >
-        <div className="panel-content">
-          <CarFront size={64} className="panel-icon auto-icon" />
-          <h2 className="panel-title">Sector Automotriz</h2>
-          <p className="panel-desc">"MARIANA"</p>
+        <div className="split-badge auto-badge">
+          <span className="text-halaney text-golden title-shadow" style={{ fontSize: '3rem' }}>Mariana</span>
         </div>
+        <p className="split-label text-renner text-white" style={{ right: '40px', left: 'auto' }}>Sector Automotriz</p>
       </div>
     </div>
   );

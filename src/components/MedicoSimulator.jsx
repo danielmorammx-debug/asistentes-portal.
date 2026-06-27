@@ -127,8 +127,8 @@ export default function MedicoSimulator() {
 
   return (
     <div style={{ display: 'flex', gap: '40px', flexWrap: 'wrap', justifyContent: 'center', width: '100%' }}>
-      <CalendarSimulator appointments={appointments} brandColor="var(--brand-med-light)" />
-      <ChatSimulator messages={messages} />
+      <CalendarSimulator appointments={appointments} brandColor="var(--brand-med-light)" theme="light" />
+      <ChatSimulator messages={messages} theme="light" />
     </div>
   );
 }

@@ -2,20 +2,20 @@ import React from 'react';
 
 export default function SplashScreen() {
   return (
-    <div className="splash-container">
-      <div className="splash-content fade-in delay-1">
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '40px' }}>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', marginBottom: '16px' }}>powered by</p>
-          <img src="/Logo 2026 TDM Blanco.png" alt="Logo 2026 TDM" style={{ height: '120px', objectFit: 'contain' }} />
-        </div>
+    <div className="splash-custom-container">
+      <div className="splash-text-block fade-in delay-1">
+        <h2 className="text-renner text-white">Evoluciona tu</h2>
+        <h1 className="text-halaney text-golden mb-8">operación.</h1>
         
-        <h1 className="splash-title">
-          Evoluciona tu <span className="text-gradient text-gradient-med">operación</span>.
-        </h1>
-        
-        <p className="splash-subtitle fade-in delay-2">
-          El futuro de la asistencia con <span className="text-gradient text-gradient-auto font-semibold">Inteligencia Artificial</span> ya está aquí.
-        </p>
+        <h2 className="text-renner text-white">El futuro de la</h2>
+        <h2 className="text-renner text-white">asistencia con</h2>
+        <h1 className="text-halaney text-green">Inteligencia Artificial</h1>
+        <h2 className="text-renner text-white mb-8">ya está aquí</h2>
+      </div>
+
+      <div className="splash-footer fade-in delay-2">
+        <p className="text-renner" style={{ fontSize: '0.9rem', marginBottom: '8px' }}>powered by</p>
+        <img src="/Logo_TDM_Blanco.png" alt="Test Drive Mx" className="splash-logo" />
       </div>
     </div>
   );

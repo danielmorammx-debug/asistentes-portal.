@@ -1,19 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate, Routes, Route, useLocation } from 'react-router-dom';
-import { ArrowLeft, CarFront, MessageSquare } from 'lucide-react';
-import FAQSection from '../components/FAQSection';
+import { ArrowLeft, Phone, MessageCircle, ChevronDown, ChevronUp } from 'lucide-react';
 import ContactFooter from '../components/ContactFooter';
 import PoweredBy from '../components/PoweredBy';
-import VapiWidget from '../components/VapiWidget';
 import AutomotrizSimulator from '../components/AutomotrizSimulator';
+import VapiWidget from '../components/VapiWidget'; // Assuming we'll use this inside the red button
 
 const automotrizFaqs = [
   {
     question: "¿Para qué sirve el Simulador Operativo?",
-    answer: "Este simulador te permite vivir la experiencia de cómo el Asistente Mariana recibe a un cliente, perfila el tipo de vehículo y gestiona una cita de servicio. Además, verás una simulación de cómo los leads llegarían directamente a tu WhatsApp."
+    answer: "Este simulador te permite vivir la experiencia de cómo el Asistente Mariana recibe a un cliente, perfila el tipo de vehículo y gestiona una cita de servicio. Además, verás una simulación de cómo llegan las confirmaciones al cliente por medio de WhatsApp."
   },
   {
-    question: "¿Para qué sirve el Consultor Técnico (MARIANA)?",
+    question: "¿Para qué sirve el Consultor Técnico Mariana?",
     answer: "Es un asistente especializado diseñado para gerentes y directores. Puedes hacerle cualquier pregunta técnica, sobre procesos de implementación, o dudas sobre cómo integrar la IA en tu agencia automotriz."
   },
   {
@@ -22,7 +21,7 @@ const automotrizFaqs = [
   },
   {
     question: "¿Qué es el Agendamiento Inteligente en el Taller?",
-    answer: "Mariana se conecta en tiempo real a tu CRM (como Salesforce). Si el horario pedido está ocupado, ofrece proactivamente alternativas según las reglas y capacidad que defina el gerente de servicio."
+    answer: "Mariana se conecta en tiempo real a tu CRM. Si el horario pedido está ocupado, ofrece proactivamente alternativas según las reglas y capacidad que defina el gerente de servicio."
   },
   {
     question: "¿Cómo ayuda Mariana con la consulta de inventario?",
@@ -34,21 +33,71 @@ const automotrizFaqs = [
   },
   {
     question: "¿Envía confirmaciones por WhatsApp?",
-    answer: "En el momento que el cliente agenda un servicio, recibe una confirmación premium por WhatsApp. Por esta misma vía, Mariana puede solicitar datos previos como el número de serie (VIN) o kilometraje."
+    answer: "En el momento que el cliente agenda un servicio, recibe una confirmación premium por WhatsApp. Por esta misma vía, Mariana puede solicitar datos previos como el VIN."
   },
   {
     question: "¿Cómo funciona el Sistema Anti-Ausentismo?",
-    answer: "Mariana envía recordatorios automáticos por WhatsApp (ej. 24 horas y 2 horas antes de la cita) personalizados según los protocolos de postventa para evitar rampas vacías en el taller."
+    answer: "Mariana envía recordatorios automáticos por WhatsApp personalizados según los protocolos de postventa para evitar rampas vacías en el taller."
   },
   {
     question: "¿Qué pasa si un cliente cancela su cita?",
-    answer: "Mariana libera el espacio en el calendario de inmediato. Además, puede reprogramar la cita con empatía si la agencia tuvo un imprevisto (ej. una refacción no llegó)."
+    answer: "Mariana libera el espacio en el calendario de inmediato y puede reprogramar la cita con empatía."
   },
   {
     question: "¿Qué es el Resumen Matutino o Briefing?",
-    answer: "A primera hora de la mañana, Mariana envía un mensaje de WhatsApp a los gerentes. Al de Servicio le desglosa los ingresos del día y al de Ventas la lista de Leads generados la noche anterior."
+    answer: "A primera hora de la mañana, Mariana envía un mensaje de WhatsApp a los gerentes con un desglose de los ingresos del día y la lista de Leads generados la noche anterior."
   }
 ];
+
+function FAQBlock() {
+  const [openIndex, setOpenIndex] = useState(0);
+
+  return (
+    <div className="faq-container-custom">
+      {automotrizFaqs.map((faq, idx) => (
+        <div key={idx} className="faq-item-custom">
+          <div 
+            className="faq-question-custom" 
+            onClick={() => setOpenIndex(openIndex === idx ? -1 : idx)}
+          >
+            <h4 className="text-renner" style={{ fontWeight: 600 }}>{faq.question}</h4>
+            {openIndex === idx ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+          </div>
+          {openIndex === idx && (
+            <div className="faq-answer-custom text-renner" style={{ fontSize: '1.1rem' }}>
+              {faq.answer}
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+const CustomFooter = () => {
+  const navigate = useNavigate();
+  return (
+    <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '80px', marginBottom: '40px' }}>
+      <h3 className="text-renner text-white" style={{ fontSize: '1.2rem', letterSpacing: '2px', marginBottom: '16px' }}>CONTACTO</h3>
+      <p style={{ textAlign: 'center', maxWidth: '650px', fontSize: '1rem', color: '#e0e0e0', fontStyle: 'italic', marginBottom: '40px', lineHeight: 1.5 }}>
+        ¿Te interesa alguno de nuestros modelos, buscas llevar tus ideas al siguiente nivel o requieres soporte en un rubro diferente? <br />
+        Contacta hoy mismo a <span className="text-halaney text-white" style={{fontSize: '1.8rem'}}>Marco</span>, nuestro agente experto, y comencemos a diseñar la solución que tu proyecto necesita.
+      </p>
+      
+      <div className="marco-avatar-container" onClick={() => navigate('/contacto')}>
+        <img src="/Marco_Avatar.png" alt="Marco" className="marco-avatar-img" />
+        <span className="text-halaney marco-shadow" style={{ position: 'absolute', bottom: '-20px', color: '#f5a6f9', fontSize: '3.5rem' }}>Marco</span>
+      </div>
+
+      <div style={{ marginTop: '80px', textAlign: 'center' }}>
+        <p className="text-renner text-white" style={{ fontSize: '0.9rem', marginBottom: '8px' }}>powered by</p>
+        <img src="/Logo_TDM_Blanco.png" alt="Test Drive Mx" style={{ height: '50px', objectFit: 'contain' }} />
+        <p className="text-white" style={{ fontSize: '0.85rem', marginTop: '24px', fontWeight: 600 }}>2026 © Test Drive Mx</p>
+        <p className="text-white" style={{ fontSize: '0.85rem' }}>Todos los derechos reservados</p>
+      </div>
+    </div>
+  );
+};
 
 export default function AutomotrizLayout() {
   const navigate = useNavigate();
@@ -63,86 +112,147 @@ export default function AutomotrizLayout() {
   };
 
   return (
-    <div className="layout-container fade-in">
-      <header className="layout-header">
-        <button className="back-button" onClick={handleBack}>
-          <ArrowLeft size={20} />
-          Volver
+    <div className="layout-container fade-in" style={{ backgroundColor: '#1E2C2C', minHeight: '100vh', padding: '0', position: 'relative' }}>
+      
+      {/* HEADER */}
+      <header className="layout-header-custom" style={{ padding: '40px', maxWidth: '1200px', margin: '0 auto', display: 'flex', alignItems: 'center' }}>
+        <button onClick={handleBack} style={{ background: 'transparent', color: 'white', display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+          <ArrowLeft size={24} />
         </button>
-        <h1 className="vertical-title text-gradient text-gradient-auto">Sector Automotriz</h1>
-        <div style={{width: 80}}></div>
+        <h1 className="text-renner text-white" style={{ fontSize: '2.5rem', marginLeft: '20px' }}>
+          Sector Automotriz
+        </h1>
       </header>
 
-      <Routes>
-        <Route path="/" element={
-          <>
-            <div className="actions-grid delay-1 fade-in">
-              <div 
-                className="action-card glass-panel auto-card"
-                onClick={() => navigate('/automotriz/simulador')}
-              >
-                <CarFront size={48} className="action-icon auto-icon" />
-                <h3 className="action-title">Simulador Operativo</h3>
-                <p className="action-desc">
-                  Prueba la experiencia de recepción, agendamiento y visualiza cómo llegarían los leads a tu WhatsApp.
+      <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '0 20px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <Routes>
+          {/* BLOQUE 2: MENÚ PRESENTACIÓN */}
+          <Route path="/" element={
+            <>
+              <div className="cards-grid-custom fade-in delay-1">
+                {/* Simulador Card - Tipo B */}
+                <div className="card-type-b" onClick={() => navigate('/automotriz/simulador')}>
+                  <div className="card-img-wrapper">
+                    <img src="/Mariana_Asistente.png" alt="Simulador Operativo" className="card-img" />
+                    <div className="card-content">
+                      <h2 className="text-halaney text-golden title-shadow" style={{ fontSize: '4rem', margin: '-10px 0', lineHeight: 0.8 }}>Mariana</h2>
+                      <h3 className="text-renner text-white" style={{ fontSize: '1.6rem', marginBottom: '8px', marginTop: '10px' }}>Simulador Operativo</h3>
+                      <p className="text-white" style={{ fontSize: '0.9rem', lineHeight: 1.4 }}>
+                        Experimenta el agendamiento inteligente 24/7 y la gestión automatizada de clientes.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Consultor Card - También Tipo B */}
+                <div className="card-type-b" onClick={() => navigate('/automotriz/consultor')}>
+                  <div className="card-img-wrapper">
+                    <img src="/Mariana_Tecnico.png" alt="Consultor Técnico" className="card-img" />
+                    <div className="card-content">
+                      <h3 className="text-renner text-white" style={{ fontSize: '1.6rem', marginBottom: '8px', marginTop: '30px' }}>Consultor Técnico</h3>
+                      <p className="text-white" style={{ fontSize: '0.9rem', lineHeight: 1.4 }}>
+                        Habla con <span className="text-halaney text-golden title-shadow" style={{ fontSize: '1.4rem' }}>Mariana</span> para resolver dudas sobre la implementación en tu agencia.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <h2 className="text-renner text-white" style={{ fontSize: '2.2rem', margin: '80px 0 40px', textAlign: 'center' }}>Preguntas Frecuentes & Respuestas</h2>
+              <FAQBlock />
+
+              <CustomFooter />
+            </>
+          } />
+
+          {/* BLOQUE 3: SIMULADOR (PRUEBAS) */}
+          <Route path="/simulador" element={
+            <div className="fade-in" style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '40px', alignSelf: 'flex-start' }}>
+                <h2 className="text-renner text-white" style={{ fontSize: '2rem' }}>Simulador Operativo</h2>
+                <span className="text-halaney text-golden title-shadow" style={{ fontSize: '3.5rem' }}>Mariana</span>
+              </div>
+
+              {/* Calendario y WhatsApp Simulator */}
+              <AutomotrizSimulator />
+
+              <h3 className="text-renner text-white" style={{ fontSize: '1.8rem', textAlign: 'center', margin: '60px 0 40px', maxWidth: '600px', lineHeight: 1.4 }}>
+                Haz la prueba ahora mismo de hablar o chatear con <span className="text-halaney text-golden title-shadow" style={{ fontSize: '3rem', verticalAlign: 'middle' }}>Mariana</span> como si fueras un cliente.
+              </h3>
+
+              <div className="prueba-panel-custom">
+                <img src="/Mariana_Asistente.png" alt="Prueba Mariana" className="prueba-img" />
+                
+                <div className="prueba-buttons-container">
+                  <div className="prueba-btn-wrapper">
+                    <div className="circle-bisel-wrapper">
+                      <div className="red-circle-btn">
+                        <Phone size={50} color="white" />
+                      </div>
+                    </div>
+                    <div style={{ textAlign: 'center', marginTop: '16px' }}>
+                      <p className="text-white" style={{ fontSize: '1.4rem', fontWeight: 600 }}>Hablar con</p>
+                      <p className="text-halaney text-golden title-shadow" style={{ fontSize: '2.5rem', marginTop: '12px' }}>Mariana</p>
+                    </div>
+                  </div>
+
+                  <div className="prueba-btn-wrapper">
+                    <div className="circle-bisel-wrapper">
+                      <div className="green-circle-btn">
+                        <MessageCircle size={50} color="white" />
+                      </div>
+                    </div>
+                    <div style={{ textAlign: 'center', marginTop: '16px' }}>
+                      <p className="text-white" style={{ fontSize: '1.4rem', fontWeight: 600 }}>Chatea con</p>
+                      <p className="text-halaney text-golden title-shadow" style={{ fontSize: '2.5rem', marginTop: '12px' }}>Mariana</p>
+                    </div>
+                  </div>
+                </div>
+
+                <p style={{ fontSize: '0.85rem', textAlign: 'center', color: '#a0a0a0', fontStyle: 'italic', marginTop: '30px', padding: '0 40px', lineHeight: 1.5 }}>
+                  <b>Nota de privacidad:</b> Este entorno operativo es una simulación con fines demostrativos. La información proporcionada no es registrada ni conservada; la sesión se restablece una vez concluida, garantizando la eliminación total de los datos.
                 </p>
               </div>
 
-              <div 
-                className="action-card glass-panel auto-card"
-                onClick={() => navigate('/automotriz/consultor')}
-              >
-                <MessageSquare size={48} className="action-icon auto-icon" />
-                <h3 className="action-title">Consultor Técnico</h3>
-                <p className="action-desc">
-                  Habla con MARIANA para resolver dudas técnicas y de implementación para tu agencia.
+              <CustomFooter />
+            </div>
+          } />
+
+          {/* BLOQUE 3: CONSULTOR */}
+          <Route path="/consultor" element={
+            <div className="fade-in" style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '40px', alignSelf: 'flex-start' }}>
+                <h2 className="text-renner text-white" style={{ fontSize: '2rem' }}>Consultor Técnico</h2>
+                <span className="text-halaney text-golden title-shadow" style={{ fontSize: '3.5rem' }}>Mariana</span>
+              </div>
+              
+              <div className="prueba-panel-custom">
+                <img src="/Mariana_Tecnico.png" alt="Prueba Consultor" className="prueba-img" />
+                
+                <div className="prueba-buttons-container">
+                  <div className="prueba-btn-wrapper">
+                    <div className="circle-bisel-wrapper">
+                      <div className="red-circle-btn">
+                        <Phone size={50} color="white" />
+                      </div>
+                    </div>
+                    <div style={{ textAlign: 'center', marginTop: '16px' }}>
+                      <p className="text-white" style={{ fontSize: '1.4rem', fontWeight: 600 }}>Habla con</p>
+                      <p className="text-halaney text-golden title-shadow" style={{ fontSize: '2.5rem', marginTop: '12px' }}>Mariana</p>
+                    </div>
+                  </div>
+                </div>
+
+                <p style={{ fontSize: '0.85rem', textAlign: 'center', color: '#a0a0a0', fontStyle: 'italic', marginTop: '30px', padding: '0 40px', lineHeight: 1.5 }}>
+                  <b>Nota de privacidad:</b> Este entorno operativo es una simulación con fines demostrativos. La información proporcionada no es registrada ni conservada; la sesión se restablece una vez concluida, garantizando la eliminación total de los datos.
                 </p>
               </div>
+
+              <CustomFooter />
             </div>
-
-            <FAQSection faqs={automotrizFaqs} type="automotriz" />
-            <PoweredBy />
-            <ContactFooter />
-          </>
-        } />
-        <Route path="/simulador" element={
-          <div className="fade-in" style={{width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-            <h2 className="text-2xl mb-8">Simulador Operativo (MARIANA)</h2>
-            
-            <AutomotrizSimulator />
-
-            <div style={{ marginTop: '60px', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <h3 className="text-xl mb-4 text-center">Haz la prueba ahora mismo de hablar con Mariana como si fueras un cliente</h3>
-              <VapiWidget 
-                assistantName="Mariana (Demo)" 
-                assistantType="Simulador" 
-                assistantId="a8c8e1f6-32fd-4d91-8880-f7a070e0d1fe"
-                publicKey="2b6e0014-709a-4af2-8612-27bfa5ca8d1a"
-              />
-            </div>
-
-            <PoweredBy />
-            <ContactFooter />
-          </div>
-        } />
-        <Route path="/consultor" element={
-          <div className="fade-in" style={{width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-            <h2 className="text-2xl mb-4">Consultor Técnico</h2>
-            <p className="text-secondary text-center max-w-2xl mb-8">
-              MARIANA está lista para responder tus preguntas técnicas y de integración.
-            </p>
-            <VapiWidget 
-              assistantName="Mariana Corporativa" 
-              assistantType="Consultor Técnico" 
-              assistantId="0b52944f-e62b-4c1c-9c70-d664413f6e5f"
-              publicKey="2b6e0014-709a-4af2-8612-27bfa5ca8d1a"
-            />
-            
-            <PoweredBy />
-            <ContactFooter />
-          </div>
-        } />
-      </Routes>
+          } />
+        </Routes>
+      </div>
     </div>
   );
 }
