@@ -87,10 +87,10 @@ const CustomFooter = () => {
         Contacta hoy mismo a <span className="text-halaney text-black" style={{fontSize: '1.8rem'}}>Marco</span>, nuestro agente experto, y comencemos a diseñar la solución que tu proyecto necesita.
       </p>
       
-      <div className="marco-avatar-container-light" onClick={() => toggleCall(MARCO_ASSISTANT_ID)} style={{ cursor: 'pointer' }}>
+      <div className="marco-avatar-container-light" onClick={() => toggleCall(MARCO_ASSISTANT_ID)} style={{ cursor: 'pointer', background: isActive ? 'rgba(255, 68, 68, 0.4)' : isConnecting ? 'rgba(82, 225, 157, 0.4)' : 'rgba(255,255,255,0.2)' }}>
         <img src="/Marco_Avatar.png" alt="Marco" className="marco-avatar-img" style={{ opacity: isActive ? 0.7 : 1, transform: isActive ? 'scale(1.05)' : 'scale(1)' }} />
-        <span className="text-halaney marco-shadow" style={{ position: 'absolute', bottom: '-20px', color: isActive ? '#52e19d' : '#f5a6f9', fontSize: isActive ? '2rem' : '3.5rem' }}>
-          {isActive ? 'Hablando...' : isConnecting ? 'Conectando...' : 'Marco'}
+        <span className="text-halaney marco-shadow" style={{ position: 'absolute', bottom: '-20px', color: '#f5a6f9', fontSize: '3.5rem' }}>
+          Marco
         </span>
       </div>
 

@@ -86,10 +86,10 @@ const CustomFooter = () => {
         Contacta hoy mismo a <span className="text-halaney text-white" style={{fontSize: '1.8rem'}}>Marco</span>, nuestro agente experto, y comencemos a diseñar la solución que tu proyecto necesita.
       </p>
       
-      <div className="marco-avatar-container" onClick={() => toggleCall(MARCO_ASSISTANT_ID)} style={{ cursor: 'pointer' }}>
+      <div className="marco-avatar-container" onClick={() => toggleCall(MARCO_ASSISTANT_ID)} style={{ cursor: 'pointer', background: isActive ? 'rgba(255, 68, 68, 0.4)' : isConnecting ? 'rgba(82, 225, 157, 0.4)' : 'var(--glass-bg-dark)' }}>
         <img src="/Marco_Avatar.png" alt="Marco" className="marco-avatar-img" style={{ opacity: isActive ? 0.7 : 1, transform: isActive ? 'scale(1.05)' : 'scale(1)' }} />
-        <span className="text-halaney marco-shadow" style={{ position: 'absolute', bottom: '-20px', color: isActive ? '#52e19d' : '#f5a6f9', fontSize: isActive ? '2rem' : '3.5rem' }}>
-          {isActive ? 'Hablando...' : isConnecting ? 'Conectando...' : 'Marco'}
+        <span className="text-halaney marco-shadow" style={{ position: 'absolute', bottom: '-20px', color: '#f5a6f9', fontSize: '3.5rem' }}>
+          Marco
         </span>
       </div>
 
@@ -179,7 +179,7 @@ function ConsultorView() {
   return (
     <div className="fade-in" style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '40px', alignSelf: 'flex-start' }}>
-        <h2 className="text-renner text-white" style={{ fontSize: '2rem' }}>Consultor Tcnico</h2>
+        <h2 className="text-renner text-white" style={{ fontSize: '2rem' }}>Consultor Técnico</h2>
         <span className="text-halaney text-golden title-shadow" style={{ fontSize: '3.5rem' }}>Mariana</span>
       </div>
       
@@ -258,11 +258,11 @@ export default function AutomotrizLayout() {
 
                 <div className="card-type-b" onClick={() => navigate('/automotriz/consultor')}>
                   <div className="card-img-wrapper">
-                    <img src="/Mariana_Tecnico.png" alt="Consultor Tcnico" className="card-img" />
+                    <img src="/Mariana_Tecnico.png" alt="Consultor Técnico" className="card-img" />
                     <div className="card-content">
-                      <h3 className="text-renner text-white" style={{ fontSize: '1.6rem', marginBottom: '8px', marginTop: '30px' }}>Consultor Tcnico</h3>
+                      <h3 className="text-renner text-white" style={{ fontSize: '1.6rem', marginBottom: '8px', marginTop: '30px' }}>Consultor Técnico</h3>
                       <p className="text-white" style={{ fontSize: '0.9rem', lineHeight: 1.4 }}>
-                        Habla con <span className="text-halaney text-golden title-shadow" style={{ fontSize: '1.4rem' }}>Mariana</span> para resolver dudas sobre la implementacin en tu agencia.
+                        Habla con <span className="text-halaney text-golden title-shadow" style={{ fontSize: '1.4rem' }}>Mariana</span> para resolver dudas sobre la implementación en tu agencia.
                       </p>
                     </div>
                   </div>
